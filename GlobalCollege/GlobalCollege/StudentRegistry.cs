@@ -2,11 +2,11 @@ using System;
 using System.Windows.Forms;
 using System.Data.SQLite;
 
-namespace SkillsInternationalSchool
+namespace GlobalCollege
 {
-    public partial class RegistrationForm : Form
+    public partial class StudentRegistry : Form
     {
-        public RegistrationForm()
+        public StudentRegistry()
         {
             InitializeComponent();
         }
@@ -14,7 +14,7 @@ namespace SkillsInternationalSchool
         private void lnkLogout_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             this.Hide();
-            LoginForm loginForm = new LoginForm();
+            AuthForm loginForm = new AuthForm();
             loginForm.Show();
         }
 
@@ -30,7 +30,7 @@ namespace SkillsInternationalSchool
         private void btnRegister_Click(object sender, EventArgs e)
         {
             string gender = radMale.Checked ? "Male" : "Female";
-            using (var connection = DatabaseHelper.GetConnection())
+            using (var connection = DBManager.GetConnection())
             {
                 connection.Open();
                 string query = "INSERT INTO Registration (firstName, lastName, dateOfBirth, gender, address, email, mobilePhone, homePhone, parentName, nic, contactNo) VALUES (@firstName, @lastName, @dateOfBirth, @gender, @address, @email, @mobilePhone, @homePhone, @parentName, @nic, @contactNo)";
@@ -58,7 +58,7 @@ namespace SkillsInternationalSchool
         private void btnUpdate_Click(object sender, EventArgs e)
         {
             string gender = radMale.Checked ? "Male" : "Female";
-            using (var connection = DatabaseHelper.GetConnection())
+            using (var connection = DBManager.GetConnection())
             {
                 connection.Open();
                 string query = "UPDATE Registration SET firstName = @firstName, lastName = @lastName, dateOfBirth = @dateOfBirth, gender = @gender, address = @address, email = @email, mobilePhone = @mobilePhone, homePhone = @homePhone, parentName = @parentName, nic = @nic, contactNo = @contactNo WHERE regNo = @regNo";
@@ -94,7 +94,7 @@ namespace SkillsInternationalSchool
             DialogResult result = MessageBox.Show("Are you sure you want to delete this record?", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (result == DialogResult.Yes)
             {
-                using (var connection = DatabaseHelper.GetConnection())
+                using (var connection = DBManager.GetConnection())
                 {
                     connection.Open();
                     string query = "DELETE FROM Registration WHERE regNo = @regNo";
@@ -129,7 +129,7 @@ namespace SkillsInternationalSchool
         private void LoadRegNumbers()
         {
             cboRegNo.Items.Clear();
-            using (var connection = DatabaseHelper.GetConnection())
+            using (var connection = DBManager.GetConnection())
             {
                 connection.Open();
                 string query = "SELECT regNo FROM Registration";
@@ -146,14 +146,14 @@ namespace SkillsInternationalSchool
             }
         }
 
-        private void RegistrationForm_Load(object sender, EventArgs e)
+        private void StudentRegistry_Load(object sender, EventArgs e)
         {
             LoadRegNumbers();
         }
 
-        private void cboRegNo_SelectedIndexChanged(object sender, EventArgs e)
+        private void regNoComboBox_SelectionChanged(object sender, EventArgs e)
         {
-            using (var connection = DatabaseHelper.GetConnection())
+            using (var connection = DBManager.GetConnection())
             {
                 connection.Open();
                 string query = "SELECT * FROM Registration WHERE regNo = @regNo";

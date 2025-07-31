@@ -1,11 +1,11 @@
 using System;
 using System.Windows.Forms;
 
-namespace SkillsInternationalSchool
+namespace GlobalCollege
 {
-    public partial class LoginForm : Form
+    public partial class AuthForm : Form
     {
-        public LoginForm()
+        public AuthForm()
         {
             InitializeComponent();
         }
@@ -15,7 +15,7 @@ namespace SkillsInternationalSchool
             if (txtUsername.Text == "Admin" && txtPassword.Text == "Skills@123")
             {
                 this.Hide();
-                RegistrationForm registrationForm = new RegistrationForm();
+                StudentRegistry registrationForm = new StudentRegistry();
                 registrationForm.Show();
             }
             else

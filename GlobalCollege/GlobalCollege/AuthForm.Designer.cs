@@ -1,6 +1,6 @@
-namespace SkillsInternationalSchool
+namespace GlobalCollege
 {
-    partial class LoginForm
+    partial class AuthForm
     {
         /// <summary>
         /// Required designer variable.
@@ -152,9 +152,9 @@ namespace SkillsInternationalSchool
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.MaximizeBox = false;
-            this.Name = "LoginForm";
+            this.Name = "AuthForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Login - Skills International";
+            this.Text = "Login - Global College";
             this.grpLogin.ResumeLayout(false);
             this.grpLogin.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picLogo)).EndInit();
