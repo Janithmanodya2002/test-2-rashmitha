@@ -1,9 +1,9 @@
 using System;
 using System.Data.SQLite;
 
-namespace SkillsInternationalSchool
+namespace GlobalCollege
 {
-    public class DatabaseHelper
+    public class DBManager
     {
         private static string connectionString = "Data Source=Student.sqlite;Version=3;";
 

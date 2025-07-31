@@ -1,6 +1,6 @@
-namespace SkillsInternationalSchool
+namespace GlobalCollege
 {
-    partial class RegistrationForm
+    partial class StudentRegistry
     {
         /// <summary>
         /// Required designer variable.
@@ -414,7 +414,7 @@ namespace SkillsInternationalSchool
             this.cboRegNo.Name = "cboRegNo";
             this.cboRegNo.Size = new System.Drawing.Size(200, 28);
             this.cboRegNo.TabIndex = 4;
-            this.cboRegNo.SelectedIndexChanged += new System.EventHandler(this.cboRegNo_SelectedIndexChanged);
+            this.cboRegNo.SelectedIndexChanged += new System.EventHandler(this.regNoComboBox_SelectionChanged);
             //
             // RegistrationForm
             //
@@ -433,10 +433,10 @@ namespace SkillsInternationalSchool
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.MaximizeBox = false;
-            this.Name = "RegistrationForm";
+            this.Name = "StudentRegistry";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Student Registration - Skills International";
-            this.Load += new System.EventHandler(this.RegistrationForm_Load);
+            this.Text = "Student Registration - Global College";
+            this.Load += new System.EventHandler(this.StudentRegistry_Load);
             this.grpStudentReg.ResumeLayout(false);
             this.grpStudentReg.PerformLayout();
             this.grpBasicDetails.ResumeLayout(false);

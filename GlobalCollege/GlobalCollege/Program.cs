@@ -1,7 +1,7 @@
 using System;
 using System.Windows.Forms;
 
-namespace SkillsInternationalSchool
+namespace GlobalCollege
 {
     static class Program
     {
@@ -11,11 +11,11 @@ namespace SkillsInternationalSchool
         [STAThread]
         static void Main()
         {
-            DatabaseHelper.InitializeDatabase();
+            DBManager.InitializeDatabase();
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new LoginForm());
+            Application.Run(new AuthForm());
         }
     }
 }
