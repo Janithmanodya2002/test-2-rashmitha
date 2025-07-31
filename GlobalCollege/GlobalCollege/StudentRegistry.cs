@@ -30,58 +30,72 @@ namespace GlobalCollege
         private void btnRegister_Click(object sender, EventArgs e)
         {
             string gender = radMale.Checked ? "Male" : "Female";
-            using (var connection = DBManager.GetConnection())
+            try
             {
-                connection.Open();
-                string query = "INSERT INTO Registration (firstName, lastName, dateOfBirth, gender, address, email, mobilePhone, homePhone, parentName, nic, contactNo) VALUES (@firstName, @lastName, @dateOfBirth, @gender, @address, @email, @mobilePhone, @homePhone, @parentName, @nic, @contactNo)";
-                using (var command = new SQLiteCommand(query, connection))
+                using (var connection = DBManager.GetConnection())
                 {
-                    command.Parameters.AddWithValue("@firstName", txtFirstName.Text);
-                    command.Parameters.AddWithValue("@lastName", txtLastName.Text);
-                    command.Parameters.AddWithValue("@dateOfBirth", dtpDOB.Value);
-                    command.Parameters.AddWithValue("@gender", gender);
-                    command.Parameters.AddWithValue("@address", txtAddress.Text);
-                    command.Parameters.AddWithValue("@email", txtEmail.Text);
-                    command.Parameters.AddWithValue("@mobilePhone", int.Parse(txtMobilePhone.Text));
-                    command.Parameters.AddWithValue("@homePhone", int.Parse(txtHomePhone.Text));
-                    command.Parameters.AddWithValue("@parentName", txtParentName.Text);
-                    command.Parameters.AddWithValue("@nic", txtNIC.Text);
-                    command.Parameters.AddWithValue("@contactNo", int.Parse(txtParentContact.Text));
-                    command.ExecuteNonQuery();
+                    connection.Open();
+                    string query = "INSERT INTO Registration (firstName, lastName, dateOfBirth, gender, address, email, mobilePhone, homePhone, parentName, nic, contactNo) VALUES (@firstName, @lastName, @dateOfBirth, @gender, @address, @email, @mobilePhone, @homePhone, @parentName, @nic, @contactNo)";
+                    using (var command = new SQLiteCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@firstName", txtFirstName.Text);
+                        command.Parameters.AddWithValue("@lastName", txtLastName.Text);
+                        command.Parameters.AddWithValue("@dateOfBirth", dtpDOB.Value);
+                        command.Parameters.AddWithValue("@gender", gender);
+                        command.Parameters.AddWithValue("@address", txtAddress.Text);
+                        command.Parameters.AddWithValue("@email", txtEmail.Text);
+                        command.Parameters.AddWithValue("@mobilePhone", int.Parse(txtMobilePhone.Text));
+                        command.Parameters.AddWithValue("@homePhone", int.Parse(txtHomePhone.Text));
+                        command.Parameters.AddWithValue("@parentName", txtParentName.Text);
+                        command.Parameters.AddWithValue("@nic", txtNIC.Text);
+                        command.Parameters.AddWithValue("@contactNo", int.Parse(txtParentContact.Text));
+                        command.ExecuteNonQuery();
+                    }
                 }
+                MessageBox.Show("Registration Successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                ClearForm();
+                LoadRegNumbers();
             }
-            MessageBox.Show("Registration Successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            ClearForm();
-            LoadRegNumbers();
+            catch (FormatException)
+            {
+                MessageBox.Show("Please enter valid numbers for phone fields.", "Invalid Input", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
             string gender = radMale.Checked ? "Male" : "Female";
-            using (var connection = DBManager.GetConnection())
+            try
             {
-                connection.Open();
-                string query = "UPDATE Registration SET firstName = @firstName, lastName = @lastName, dateOfBirth = @dateOfBirth, gender = @gender, address = @address, email = @email, mobilePhone = @mobilePhone, homePhone = @homePhone, parentName = @parentName, nic = @nic, contactNo = @contactNo WHERE regNo = @regNo";
-                using (var command = new SQLiteCommand(query, connection))
+                using (var connection = DBManager.GetConnection())
                 {
-                    command.Parameters.AddWithValue("@firstName", txtFirstName.Text);
-                    command.Parameters.AddWithValue("@lastName", txtLastName.Text);
-                    command.Parameters.AddWithValue("@dateOfBirth", dtpDOB.Value);
-                    command.Parameters.AddWithValue("@gender", gender);
-                    command.Parameters.AddWithValue("@address", txtAddress.Text);
-                    command.Parameters.AddWithValue("@email", txtEmail.Text);
-                    command.Parameters.AddWithValue("@mobilePhone", int.Parse(txtMobilePhone.Text));
-                    command.Parameters.AddWithValue("@homePhone", int.Parse(txtHomePhone.Text));
-                    command.Parameters.AddWithValue("@parentName", txtParentName.Text);
-                    command.Parameters.AddWithValue("@nic", txtNIC.Text);
-                    command.Parameters.AddWithValue("@contactNo", int.Parse(txtParentContact.Text));
-                    command.Parameters.AddWithValue("@regNo", int.Parse(cboRegNo.Text));
-                    command.ExecuteNonQuery();
+                    connection.Open();
+                    string query = "UPDATE Registration SET firstName = @firstName, lastName = @lastName, dateOfBirth = @dateOfBirth, gender = @gender, address = @address, email = @email, mobilePhone = @mobilePhone, homePhone = @homePhone, parentName = @parentName, nic = @nic, contactNo = @contactNo WHERE regNo = @regNo";
+                    using (var command = new SQLiteCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@firstName", txtFirstName.Text);
+                        command.Parameters.AddWithValue("@lastName", txtLastName.Text);
+                        command.Parameters.AddWithValue("@dateOfBirth", dtpDOB.Value);
+                        command.Parameters.AddWithValue("@gender", gender);
+                        command.Parameters.AddWithValue("@address", txtAddress.Text);
+                        command.Parameters.AddWithValue("@email", txtEmail.Text);
+                        command.Parameters.AddWithValue("@mobilePhone", int.Parse(txtMobilePhone.Text));
+                        command.Parameters.AddWithValue("@homePhone", int.Parse(txtHomePhone.Text));
+                        command.Parameters.AddWithValue("@parentName", txtParentName.Text);
+                        command.Parameters.AddWithValue("@nic", txtNIC.Text);
+                        command.Parameters.AddWithValue("@contactNo", int.Parse(txtParentContact.Text));
+                        command.Parameters.AddWithValue("@regNo", int.Parse(cboRegNo.Text));
+                        command.ExecuteNonQuery();
+                    }
                 }
+                MessageBox.Show("Record Updated Successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                ClearForm();
+                LoadRegNumbers();
             }
-            MessageBox.Show("Record Updated Successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            ClearForm();
-            LoadRegNumbers();
+            catch (FormatException)
+            {
+                MessageBox.Show("Please enter valid numbers for phone and registration number fields.", "Invalid Input", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnClear_Click(object sender, EventArgs e)
@@ -94,19 +108,26 @@ namespace GlobalCollege
             DialogResult result = MessageBox.Show("Are you sure you want to delete this record?", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (result == DialogResult.Yes)
             {
-                using (var connection = DBManager.GetConnection())
+                try
                 {
-                    connection.Open();
-                    string query = "DELETE FROM Registration WHERE regNo = @regNo";
-                    using (var command = new SQLiteCommand(query, connection))
+                    using (var connection = DBManager.GetConnection())
                     {
-                        command.Parameters.AddWithValue("@regNo", int.Parse(cboRegNo.Text));
-                        command.ExecuteNonQuery();
+                        connection.Open();
+                        string query = "DELETE FROM Registration WHERE regNo = @regNo";
+                        using (var command = new SQLiteCommand(query, connection))
+                        {
+                            command.Parameters.AddWithValue("@regNo", int.Parse(cboRegNo.Text));
+                            command.ExecuteNonQuery();
+                        }
                     }
+                    MessageBox.Show("Record Deleted Successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    ClearForm();
+                    LoadRegNumbers();
                 }
-                MessageBox.Show("Record Deleted Successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                ClearForm();
-                LoadRegNumbers();
+                catch (FormatException)
+                {
+                    MessageBox.Show("Please select a valid registration number.", "Invalid Input", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
@@ -151,40 +172,47 @@ namespace GlobalCollege
             LoadRegNumbers();
         }
 
-        private void regNoComboBox_SelectionChanged(object sender, EventArgs e)
+        private void cboRegNo_SelectedIndexChanged(object sender, EventArgs e)
         {
-            using (var connection = DBManager.GetConnection())
+            try
             {
-                connection.Open();
-                string query = "SELECT * FROM Registration WHERE regNo = @regNo";
-                using (var command = new SQLiteCommand(query, connection))
+                using (var connection = DBManager.GetConnection())
                 {
-                    command.Parameters.AddWithValue("@regNo", int.Parse(cboRegNo.Text));
-                    using (var reader = command.ExecuteReader())
+                    connection.Open();
+                    string query = "SELECT * FROM Registration WHERE regNo = @regNo";
+                    using (var command = new SQLiteCommand(query, connection))
                     {
-                        if (reader.Read())
+                        command.Parameters.AddWithValue("@regNo", int.Parse(cboRegNo.Text));
+                        using (var reader = command.ExecuteReader())
                         {
-                            txtFirstName.Text = reader["firstName"].ToString();
-                            txtLastName.Text = reader["lastName"].ToString();
-                            dtpDOB.Value = Convert.ToDateTime(reader["dateOfBirth"]);
-                            if (reader["gender"].ToString() == "Male")
+                            if (reader.Read())
                             {
-                                radMale.Checked = true;
+                                txtFirstName.Text = reader["firstName"].ToString();
+                                txtLastName.Text = reader["lastName"].ToString();
+                                dtpDOB.Value = Convert.ToDateTime(reader["dateOfBirth"]);
+                                if (reader["gender"].ToString() == "Male")
+                                {
+                                    radMale.Checked = true;
+                                }
+                                else
+                                {
+                                    radFemale.Checked = true;
+                                }
+                                txtAddress.Text = reader["address"].ToString();
+                                txtEmail.Text = reader["email"].ToString();
+                                txtMobilePhone.Text = reader["mobilePhone"].ToString();
+                                txtHomePhone.Text = reader["homePhone"].ToString();
+                                txtParentName.Text = reader["parentName"].ToString();
+                                txtNIC.Text = reader["nic"].ToString();
+                                txtParentContact.Text = reader["contactNo"].ToString();
                             }
-                            else
-                            {
-                                radFemale.Checked = true;
-                            }
-                            txtAddress.Text = reader["address"].ToString();
-                            txtEmail.Text = reader["email"].ToString();
-                            txtMobilePhone.Text = reader["mobilePhone"].ToString();
-                            txtHomePhone.Text = reader["homePhone"].ToString();
-                            txtParentName.Text = reader["parentName"].ToString();
-                            txtNIC.Text = reader["nic"].ToString();
-                            txtParentContact.Text = reader["contactNo"].ToString();
                         }
                     }
                 }
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("Please select a valid registration number.", "Invalid Input", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

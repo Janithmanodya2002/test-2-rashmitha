@@ -414,7 +414,7 @@ namespace GlobalCollege
             this.cboRegNo.Name = "cboRegNo";
             this.cboRegNo.Size = new System.Drawing.Size(200, 28);
             this.cboRegNo.TabIndex = 4;
-            this.cboRegNo.SelectedIndexChanged += new System.EventHandler(this.regNoComboBox_SelectionChanged);
+            this.cboRegNo.SelectedIndexChanged += new System.EventHandler(this.cboRegNo_SelectedIndexChanged);
             //
             // RegistrationForm
             //
