@@ -18,14 +18,14 @@
 ### Code Snippet
 
 ```csharp
-// LoginForm.cs
+// AuthForm.cs
 
 private void btnLogin_Click(object sender, EventArgs e)
 {
     if (txtUsername.Text == "Admin" && txtPassword.Text == "Skills@123")
     {
         this.Hide();
-        RegistrationForm registrationForm = new RegistrationForm();
+        StudentRegistry registrationForm = new StudentRegistry();
         registrationForm.Show();
     }
     else
@@ -62,12 +62,12 @@ private void btnExit_Click(object sender, EventArgs e)
 ### Code Snippets
 
 ```csharp
-// RegistrationForm.cs
+// StudentRegistry.cs
 
 private void btnRegister_Click(object sender, EventArgs e)
 {
     string gender = radMale.Checked ? "Male" : "Female";
-    using (var connection = DatabaseHelper.GetConnection())
+    using (var connection = DBManager.GetConnection())
     {
         connection.Open();
         string query = "INSERT INTO Registration (firstName, lastName, dateOfBirth, gender, address, email, mobilePhone, homePhone, parentName, nic, contactNo) VALUES (@firstName, @lastName, @dateOfBirth, @gender, @address, @email, @mobilePhone, @homePhone, @parentName, @nic, @contactNo)";
@@ -95,7 +95,7 @@ private void btnRegister_Click(object sender, EventArgs e)
 private void btnUpdate_Click(object sender, EventArgs e)
 {
     string gender = radMale.Checked ? "Male" : "Female";
-    using (var connection = DatabaseHelper.GetConnection())
+    using (var connection = DBManager.GetConnection())
     {
         connection.Open();
         string query = "UPDATE Registration SET firstName = @firstName, lastName = @lastName, dateOfBirth = @dateOfBirth, gender = @gender, address = @address, email = @email, mobilePhone = @mobilePhone, homePhone = @homePhone, parentName = @parentName, nic = @nic, contactNo = @contactNo WHERE regNo = @regNo";
@@ -126,7 +126,7 @@ private void btnDelete_Click(object sender, EventArgs e)
     DialogResult result = MessageBox.Show("Are you sure you want to delete this record?", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
     if (result == DialogResult.Yes)
     {
-        using (var connection = DatabaseHelper.GetConnection())
+        using (var connection = DBManager.GetConnection())
         {
             connection.Open();
             string query = "DELETE FROM Registration WHERE regNo = @regNo";
@@ -144,7 +144,7 @@ private void btnDelete_Click(object sender, EventArgs e)
 
 private void cboRegNo_SelectedIndexChanged(object sender, EventArgs e)
 {
-    using (var connection = DatabaseHelper.GetConnection())
+    using (var connection = DBManager.GetConnection())
     {
         connection.Open();
         string query = "SELECT * FROM Registration WHERE regNo = @regNo";
